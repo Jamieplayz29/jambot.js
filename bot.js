@@ -166,7 +166,7 @@ client.on('message', async message => {
                 serverQueue.songs.push(song)
                 let newsong = new Discord.MessageEmbed()
                 .setTitle(`**${song.title}** has been added to the queue!`)
-                .setColor("#00FF25")
+                .setColor("#FF0000")
                 return message.channel.send(newsong);
             }
         }
