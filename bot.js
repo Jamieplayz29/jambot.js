@@ -16,10 +16,7 @@ let active = new Map();
 let PREFIX = '/';
 const YouTube = require('simple-youtube-api');
 const youtube = new YouTube(process.env.YOUTUBE_API)
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Our app is running on port ${ PORT }`);
-});
+
 
 
 
