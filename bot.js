@@ -146,21 +146,21 @@ client.on('message', async message => {
                 volume: 5,
                 playing: true
             }
-            queue.set(message.guild.id, queueConstruct);
-            queueConstruct.songs.push(song);
+            queue.set(message.guild.id, queueConstruct)
+            queueConstruct.songs.push(song)
             try {
                 var connect = await voiceChannel.join()
-                queueConstruct.connection = connection;
-                play(message.guild, queueConstruct.songs[0]);
+                queueConstruct.connection = connection
+                play(message.guild, queueConstruct.songs[0])
             } catch (error) {
                 console.error(`i could not join the channel! ${error}`)
-                queue.delete(message.guild.id);
+                queue.delete(message.guild.id)
                 let error1 = new Discord.MessageEmbed()
                 .setTitle("I couldn't join the Voice Channel :jamiebot:!")
                 .setDescription(`${error}`)
                 .setColor("#FF0000")
                 return message.channel.send(error1)
-            } else {
+            }  {
                 serverQueue.songs.push(song)
                 let newsong = new Discord.MessageEmbed()
                 .setTitle(`**${song.title}** has been added to the queue!`)
