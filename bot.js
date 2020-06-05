@@ -37,7 +37,7 @@ client.on('message', message => {
      
     if(message.content.toLowerCase().startsWith("/music"))
     {
-        let VoiceChannel = message.member.guild.channels.cache.find(channel => channel.id === '709029994264789035');
+        let VoiceChannel = message.member.guild.channels.cache.find(channel => channel.id === '710225788267397210');
         if(VoiceChannel != null)
         {
             console.log(VoiceChannel.name + " was found and is a " + VoiceChannel.type + " channel.")
