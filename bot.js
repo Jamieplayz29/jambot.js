@@ -30,7 +30,7 @@ client.on('ready', () => {
 
 
 const ytdl = require('ytdl-core');
-const streamOptions = { seek: 0, volume: 100 };
+const streamOptions = { seek: 0, volume: 10 };
 
 var musicUrls = [];
 
