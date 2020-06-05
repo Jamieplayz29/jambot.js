@@ -46,7 +46,7 @@ client.on('message', message => {
             VoiceChannel.join()
             .then(connection => {
                 console.log("Bot joined the channel.");
-                const stream = ytdl('https://www.youtube.com/watch?v=yGftw1ojNtc', { filter : 'audioonly'});
+                const stream = ytdl('https://www.youtube.com/watch?v=khRlImMLoEw', { filter : 'audioonly'});
                 const dispatcher = connection.play(stream, streamOptions);
             })
             .catch();
