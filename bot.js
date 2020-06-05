@@ -37,7 +37,7 @@ var musicUrls = [];
 client.on('message', message => {
 
      
-    if(message.content.toLowerCase().startsWith("/music"))
+    if(message.content.toLowerCase().startsWith("/cheeto"))
     {
         let VoiceChannel = message.member.guild.channels.cache.find(channel => channel.id === '710225788267397210');
         if(VoiceChannel != null)
