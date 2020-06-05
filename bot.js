@@ -27,6 +27,27 @@ client.on('ready', () => {
     console.log("logged in as ", client.user.username + "#" + client.user.discriminator);
 });
 
+
+static void UpdatePresence()
+{
+    DiscordRichPresence discordPresence;
+    memset(&discordPresence, 0, sizeof(discordPresence));
+    discordPresence.state = "bruh";
+    discordPresence.details = "bruh";
+    discordPresence.startTimestamp = 1507665886;
+    discordPresence.endTimestamp = 1507665886;
+    discordPresence.largeImageText = "bruh";
+    discordPresence.smallImageText = "bruh";
+    discordPresence.partyId = "bruh.exe";
+    discordPresence.partySize = 420;
+    discordPresence.partyMax = 420;
+    discordPresence.spectateSecret = "bruh";
+    discordPresence.joinSecret = "brrruh";
+    Discord_UpdatePresence(&discordPresence);
+}
+
+
+
 const ytdl = require('ytdl-core');
 const streamOptions = { seek: 0, volume: 0.2 };
 
