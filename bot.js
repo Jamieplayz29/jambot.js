@@ -30,7 +30,7 @@ client.on('ready', () => {
 
 
 const ytdl = require('ytdl-core');
-const streamOptions = { seek: 0, volume: 1 };
+const streamOptions = { seek: 0, volume: 0.3 };
 
 var musicUrls = [];
 
@@ -46,7 +46,7 @@ client.on('message', message => {
             VoiceChannel.join()
             .then(connection => {
                 console.log("Bot joined the channel.");
-                const stream = ytdl('https://www.youtube.com/watch?v=SXOCSAcm488', { filter : 'audioonly'});
+                const stream = ytdl('https://www.youtube.com/watch?v=yGftw1ojNtc', { filter : 'audioonly'});
                 const dispatcher = connection.play(stream, streamOptions);
             })
             .catch();
