@@ -81,30 +81,3 @@ client.on('message', async message => {
 
     };
 });
-
-client.on('message', async message => {
-
-
-
-    let novoice = new Discord.MessageEmbed()
-    setColor("#FF0000")
-    .setDescription("Please enter a song or YouTube video name. Be as specific as possible in order to get the song/vid u want :)")
-    .setTitle("You have to be in a voice channel to use this command :angie:.")
-    let invalidPerms = new Discord.MessageEmbed()
-    .setTitle("I cannot join your voice channel, make sure i have the right perms to join it! :deafen: ")
-    .setColor("#FF0000")
-    let invalidPerms2 = new Discord.MessageEmbed()
-    .setTitle("I cannot speak in your voice channel, make sure i have the right perms to join it! :deafen: ")
-    .setColor("#FF0000")
-    let ended = new Discord.MessageEmbed()
-    .setTitle("There is nothing playing that i could skip :jamiebot:.")
-    .setColor("#FF0000")
-    let ended2 = new Discord.MessageEmbed()
-    .setTitle("There is nothing playing :jamiebot:! ")
-    .setColor("#FF0000")
-
-
-            
-        }
-    
-);
