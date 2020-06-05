@@ -56,7 +56,7 @@ client.on('message', message => {
 client.on('message', async message => {
     if(message.author.bot) return;
 
-    if(message.content.toLowerCase() === '/play') {
+    if(message.content.toLowerCase() === 'Removedplay') {
         let embed = new Discord.MessageEmbed()
             .setColor("#FF0000")
             .setDescription("Please enter a song or YouTube video name. Be as specific as possible in order to get the song/vid u want :)")
