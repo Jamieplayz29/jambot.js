@@ -71,7 +71,7 @@ client.on('message', async message => {
                     i++;
                     return i + ") " + result.title;
                 });
-                console.log(titles); 
+                console.log(titles);
                 
             }
 
