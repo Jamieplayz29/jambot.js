@@ -16,6 +16,17 @@ let active = new Map();
 let PREFIX = '/';
 const YouTube = require('simple-youtube-api');
 const youtube = new YouTube(process.env.YOUTUBE_API)
+const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
+.on('end', () => {
+    serverQueue.songs.shift();
+    play(guild, serverQueue.songs[0]);
+})
+.on('error', error => console.log(error));
+    dispatcher.setVolumeLogarithmatic(serverQueue.volume / 5);
+    let nowplaying = new Discord.MessageEmbed()
+    .setTitle(`Now Playing: **${song.title}**`)
+    .setColor('BLUE')
+    serverQueue.textChannel.send(nowplaying)
 
 
 
@@ -223,15 +234,5 @@ client.on('message', async message => {
         } 
     }
 
-    const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
-    .on('end', () => {
-        serverQueue.songs.shift();
-        play(guild, serverQueue.songs[0]);
-    })
-    .on('error', error => console.log(error));
-        dispatcher.setVolumeLogarithmatic(serverQueue.volume / 5);
-        let nowplaying = new Discord.MessageEmbed()
-        .setTitle(`Now Playing: **${song.title}**`)
-        .setColor('BLUE')
-        serverQueue.textChannel.send(nowplaying)
+   
 });
