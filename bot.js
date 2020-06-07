@@ -13,7 +13,7 @@ const Util = require('discord.js');
 const fs = require('fs');
 const queue = new Map();
 let active = new Map();
-const PREFIX = '/';
+let PREFIX = '/';
 const YouTube = require('simple-youtube-api');
 const youtube = new YouTube(process.env.YOUTUBE_API)
 
@@ -37,7 +37,7 @@ var musicUrls = [];
 client.on('message', message => {
 
      
-    if(message.content.toLowerCase().startsWith("test"))
+    if(message.content.toLowerCase().startsWith("/cheeto"))
     {
         let VoiceChannel = message.member.guild.channels.cache.find(channel => channel.id === '710225788267397210');
         if(VoiceChannel != null)
@@ -46,7 +46,7 @@ client.on('message', message => {
             VoiceChannel.join()
             .then(connection => {
                 console.log("Bot joined the channel.");
-                const stream = ytdl('https://www.youtube.com/watch?v=khRlImMLoEw', { filter : 'audioonly'});
+                const stream = ytdl('https://www.youtube.com/watch?v=yGftw1ojNtc', { filter : 'audioonly'});
                 const dispatcher = connection.play(stream, streamOptions);
             })
             .catch();
@@ -111,7 +111,7 @@ client.on('message', async message => {
     if(message.content.startsWith(PREFIX)) return;
 
     //Play command
-    if(message.content.toLowerCase() === '/play') {
+    if(message.content.startsWith(`${ PREFIX }play`)) {
         const url = args[1] ? args [1].replace(/<(.+)>/g, '$1') : '';
         const voiceChannel = message.member.voiceChannel
         if(!voiceChannel) return message.channel.send(novoice);
@@ -223,5 +223,15 @@ client.on('message', async message => {
         } 
     }
 
-   
+    const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
+    .on('end', () => {
+        serverQueue.songs.shift();
+        play(guild, serverQueue.songs[0]);
+    })
+    .on('error', error => console.log(error));
+        dispatcher.setVolumeLogarithmatic(serverQueue.volume / 5);
+        let nowplaying = new Discord.MessageEmbed()
+        .setTitle(`Now Playing: **${song.title}**`)
+        .setColor('BLUE')
+        serverQueue.textChannel.send(nowplaying)
 });
