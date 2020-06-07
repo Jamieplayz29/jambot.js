@@ -195,24 +195,7 @@ client.on('message', async message => {
             return
 
             //volume command
-        } else if (message.content = `${PREFIX}volume`) {
-            if (!message.member.voiceChannel) return message.channel.send(novoice)
-            if (!serverQueue) return message.channel.send(ended2)
-            let stop = Discord.MessageEmbed()
-            .setTitle("Sorry, the volume limit is 10. :jamiebot:")
-            .setColor("#FF0000")
-            if (parseInt(args[1]) > 10) return message.channel.send(volume)
-            let stop = Discord.MessageEmbed()
-            .setTitle("I need a number from 1-10. :jamiebot:")
-            .setColor("#FF0000")
-            if (isNaN(args[1])) return message.channel.send(novolume)
-            serverQueue.volume = args[1];
-            serverQueue.connection.dispatcher.setVolumeLogarithmatic(args[1] / 5)
-            message.channel.send()
-            let stop = Discord.MessageEmbed()
-            .setTitle(`I set the volume to: **${args[1]}** :jamiebot:`)
-            .setColor("#00ff7f")
-            message.channel.send(newvolume)
+       
 
             //Queue Command
         } else if (message.content === `${PREFIX}queue`) {
