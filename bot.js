@@ -111,7 +111,7 @@ client.on('message', async message => {
     if(message.content.startsWith(PREFIX)) return;
 
     //Play command
-    if(message.content.startsWith('/play')) {
+    if(message.content.toLowerCase() === '/play') {
         const url = args[1] ? args [1].replace(/<(.+)>/g, '$1') : '';
         const voiceChannel = message.member.voiceChannel
         if(!voiceChannel) return message.channel.send(novoice);
