@@ -30,7 +30,7 @@ client.on('ready', () => {
 
 
 const ytdl = require('ytdl-core');
-const streamOptions = { seek: 0, volume: 0.3 };
+const streamOptions = { seek: 0, volume: 0.2 };
 
 var musicUrls = [];
 
@@ -46,7 +46,7 @@ client.on('message', message => {
             VoiceChannel.join()
             .then(connection => {
                 console.log("Bot joined the channel.");
-                const stream = ytdl('https://www.youtube.com/watch?v=yGftw1ojNtc', { filter : 'audioonly'});
+                const stream = ytdl('https://www.youtube.com/watch?v=khRlImMLoEw', { filter : 'audioonly'});
                 const dispatcher = connection.play(stream, streamOptions);
             })
             .catch();
@@ -80,4 +80,104 @@ client.on('message', async message => {
 
 
     };
+});
+
+client.on('message', async message => {
+
+
+
+    let novoice = new Discord.MessageEmbed()
+    .setColor("#FF0000")
+    .setDescription("Please enter a song or YouTube video name. Be as specific as possible in order to get the song/vid u want :)")
+    .setTitle("You have to be in a voice channel to use this command :angie:.")
+    let invalidPerms = new Discord.MessageEmbed()
+    .setTitle("I cannot join your voice channel, make sure i have the right perms to join it! :deafen: ")
+    .setColor("#FF0000")
+    let invalidPerms2 = new Discord.MessageEmbed()
+    .setTitle("I cannot speak in your voice channel, make sure i have the right perms to join it! :deafen: ")
+    .setColor("#FF0000")
+    let ended = new Discord.MessageEmbed()
+    .setTitle("There is nothing playing that i could skip :jamiebot:.")
+    .setColor("#FF0000")
+    let ended2 = new Discord.MessageEmbed()
+    .setTitle("There is nothing playing :jamiebot:! ")
+    .setColor("#FF0000")
+
+    if(message.author.bot) return;
+    if(message.channel.type === 'dm') return;
+    const args = message.content.split(' ');
+    const searchString = args.slice(1).join(' '); // '/play + link or name of song'
+    const serverQueue = queue.get(message.guild.id);
+    if(message.content.startsWith(PREFIX)) return;
+
+    //Play command
+    if(message.content.startsWith(`${ PREFIX }play`)) {
+        const url = args[1] ? args [1].replace(/<(.+)>/g, '$1') : '';
+        const voiceChannel = message.member.voiceChannel
+        if(!voiceChannel) return message.channel.send(novoice);
+        const permission = voiceChannel.permissionsFor(message.client.user);
+        if(!permission.has('CONNECT')) return message.channel.send(invalidPerms);
+        if(!permission.has('SPEAK')) return message.channel.send(invalidPerms2);
+        try {
+            var videos = await youtube.searchVideos(searchString, 1);
+            var video = await youtube.getVideoByID(videos[0].id);
+        } catch(error) {
+            try {
+                var videos = await youtube.searchVideos(searchString, 1);
+                var videos = await youtube.getVideosByID(videos[0].id);
+            } catch (err) {
+                let nosearch = new Discord.MessageEmbed()
+                .setTitle("Soz i couldn't find anything on youtube for that :jamiebot:.")
+                .setColor("#FF0000")
+                console.log(err)
+                return message.channel.send(nosearch);
+            }
+        }
+        
+
+        const song = {
+            id:video.id,
+            title: video.title,
+            url: `https://www.youtube.com/watch?v=${video.id}`
+        };
+        if (!serverQueue) {
+            const queueConstruct = {
+                textChannel: voiceChannel,
+                connection: null,
+                songs: [],
+                volume: 5,
+                playing: true
+            }
+            queue.set(message.guild.id, queueConstruct)
+            queueConstruct.songs.push(song)
+            try {
+                var connect = await voiceChannel.join()
+                queueConstruct.connection = connection
+                play(message.guild, queueConstruct.songs[0])
+            } catch (error) {
+                console.error(`i could not join the channel! ${error}`)
+                queue.delete(message.guild.id)
+                let error1 = new Discord.MessageEmbed()
+                .setTitle("I couldn't join the Voice Channel :jamiebot:!")
+                .setDescription(`${error}`)
+                .setColor("#FF0000")
+                return message.channel.send(error1)
+            }  {
+                serverQueue.songs.push(song)
+                let newsong = new Discord.MessageEmbed()
+                .setTitle(`**${song.title}** has been added to the queue!`)
+                .setColor("#FF0000")
+                return message.channel.send(newsong);
+            }
+        }
+    }
+    function play(guild, song) {
+        const serverQueue = queue.get(guild.id);
+
+        if (!song) {
+            serverQueue.voiceChannel.leave()
+            queue.delete(guild.id)
+            return
+        }
+    }
 });
