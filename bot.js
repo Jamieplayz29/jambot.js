@@ -13,7 +13,7 @@ const Util = require('discord.js');
 const fs = require('fs');
 const queue = new Map();
 let active = new Map();
-let PREFIX = '/';
+const PREFIX = '/';
 const YouTube = require('simple-youtube-api');
 const youtube = new YouTube(process.env.YOUTUBE_API)
 
@@ -37,7 +37,7 @@ var musicUrls = [];
 client.on('message', message => {
 
      
-    if(message.content.toLowerCase().startsWith("/cheeto"))
+    if(message.content.toLowerCase().startsWith("test"))
     {
         let VoiceChannel = message.member.guild.channels.cache.find(channel => channel.id === '710225788267397210');
         if(VoiceChannel != null)
@@ -111,7 +111,7 @@ client.on('message', async message => {
     if(message.content.startsWith(PREFIX)) return;
 
     //Play command
-    if(message.content.startsWith(`${ PREFIX }play`)) {
+    if(message.content.startsWith('/play')) {
         const url = args[1] ? args [1].replace(/<(.+)>/g, '$1') : '';
         const voiceChannel = message.member.voiceChannel
         if(!voiceChannel) return message.channel.send(novoice);
