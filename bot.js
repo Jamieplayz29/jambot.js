@@ -162,15 +162,74 @@ client.on('message', async message => {
                 .setDescription(`${error}`)
                 .setColor("#FF0000")
                 return message.channel.send(error1)
-            }  {
+            } 
+        } else {
                 serverQueue.songs.push(song)
                 let newsong = new Discord.MessageEmbed()
                 .setTitle(`**${song.title}** has been added to the queue!`)
-                .setColor("#FF0000")
+                .setColor("#00ff7f")
                 return message.channel.send(newsong);
             }
+            return;
+
+            //Skip Command
+        } else if (message.content === `${PREFIX}skip`) {
+            if (!message.member.voiceChannel) return message.channel.send(novoice)
+            if (!serverQueue) return message.channel.send(ended1)
+            serverQueue.connection.dispatcher.end();
+            let skipped = new Discord.MessageEmbed()
+            .setTitle(`I skipped the song! :jamiebot:`)
+            .setColor("##00ff7f")
+            return message.channel.send(skipped)
+
+            //Leave Command (make the bot leave the channel)
+        } else if (message.content === `${PREFIX}leave`) {
+            if (!serverQueue) return message.channel.send(ended2)
+            if (!message.member.voiceChannel) return message.channel.send(novoice)
+            let stop = Discord.MessageEmbed()
+            .setTitle("**I have left the voice channel! :jamiebot:**")
+            .setColor("#00ff7f")
+            message.channel.send(stop)
+            serverQueue.songs = [];
+            serverQueue.connection.dispatcher.end();
+            return
+
+            //volume command
+        } else if (message.content = `${PREFIX}volume`) {
+            if (!message.member.voiceChannel) return message.channel.send(novoice)
+            if (!serverQueue) return message.channel.send(ended2)
+            let stop = Discord.MessageEmbed()
+            .setTitle("Sorry, the volume limit is 10. :jamiebot:")
+            .setColor("#FF0000")
+            if (parseInt(args[1]) > 10) return message.channel.send(volume)
+            let stop = Discord.MessageEmbed()
+            .setTitle("I need a number from 1-10. :jamiebot:")
+            .setColor("#FF0000")
+            if (isNaN(args[1])) return message.channel.send(novolume)
+            serverQueue.volume = args[1];
+            serverQueue.connection.dispatcher.setVolumeLogarithmatic(args[1] / 5)
+            message.channel.send()
+            let stop = Discord.MessageEmbed()
+            .setTitle(`I set the volume to: **${args[1]}** :jamiebot:`)
+            .setColor("#00ff7f")
+            message.channel.send(newvolume)
+
+            //Queue Command
+        } else if (message.content === `${PREFIX}queue`) {
+            let empty = new Discord.MessageEmbed()
+            .setTitle("There is nothing in the queue. :jamiebot:")
+            .setColor("FF0000")
+            if (!serverQueue) return message.channel.send(empty)
+            if (!message.member.voiceChannel) return message.channel.send(novoice)
+            let queuelist = new Discord.MessageEmbed()
+            .setTitle("__**Queue List:**__")
+            .setDescription(`${serverQueue.songs.map(song => `**X** ${song.title}`).join(`\n`)}
+
+        **Now Playing: ** ${serverQueue.songs[0].title}`)
+            .setColor("1a8cff")
+            return message.channel.send(queuelist)
         }
-    }
+       
     function play(guild, song) {
         const serverQueue = queue.get(guild.id);
 
@@ -178,6 +237,18 @@ client.on('message', async message => {
             serverQueue.voiceChannel.leave()
             queue.delete(guild.id)
             return
-        }
+        } 
     }
+
+    const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
+    .on('end', () => {
+        serverQueue.songs.shift();
+        play(guild, serverQueue.songs[0]);
+    })
+    .on('error', error => console.log(error));
+        dispatcher.setVolumeLogarithmatic(serverQueue.volume / 5);
+        let nowplaying = new Discord.MessageEmbed()
+        .setTitle(`Now Playing: **${song.title}**`)
+        .setColor('BLUE')
+        serverQueue.textChannel.send(nowplaying)
 });
