@@ -28,23 +28,6 @@ client.login(process.env.TOKEN);
 
 client.on('ready', () => {
     console.log("logged in as ", client.user.username + "#" + client.user.discriminator);
-    client.music = new ErelaClient(client, nodes)
-        .on("nodeError", console.log)
-        .on("nodeConnect", () => console.log("Succesfully created a new Node."))
-        .on("queueEnd", player => {
-            player.textChannel.send("Queue has ended.")
-            return bot.music.players.destroy(player.guild.id)
-        })
-        .on("trackStart", ({textChannel}, {title, duration}) => textChannel.send(`Now playing: **${title}** \`${Utils.formatTime(duration, true)}\``))
-
-    client.levels = new Map()
-        .set("none", 0.0)
-        .set("low", 0.10)
-        .set("medium", 0.15)
-        .set("high", 0.25);
-});
-
-
 
 const ytdl = require('ytdl-core');
 const streamOptions = { seek: 0, volume: 0.2 };
