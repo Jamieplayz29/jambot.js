@@ -149,3 +149,13 @@
 2020-06-08 17:13:58.443  INFO 15928 --- [XNIO-1 task-6] lavalink.server.io.SocketServer          : Connection successfully established from /127.0.0.1:57806
 2020-06-08 17:14:55.118  INFO 15928 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:57806 -- CloseStatus[code=1006, reason=]
 2020-06-08 17:14:55.119  INFO 15928 --- [XNIO-1 I/O-2] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2020-06-08 17:23:27.922  INFO 15928 --- [XNIO-1 task-7] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:57906
+2020-06-08 17:23:27.943  INFO 15928 --- [XNIO-1 task-7] lavalink.server.io.SocketServer          : Connection successfully established from /127.0.0.1:57906
+2020-06-08 17:24:06.766  INFO 15928 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:57906 -- CloseStatus[code=1006, reason=]
+2020-06-08 17:24:06.767  INFO 15928 --- [XNIO-1 I/O-2] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2020-06-08 17:24:09.888  INFO 15928 --- [XNIO-1 task-8] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:57916
+2020-06-08 17:24:09.940  INFO 15928 --- [XNIO-1 task-8] lavalink.server.io.SocketServer          : Connection successfully established from /127.0.0.1:57916
+2020-06-08 17:27:41.245  INFO 15928 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:57916 -- CloseStatus[code=1006, reason=]
+2020-06-08 17:27:41.246  INFO 15928 --- [XNIO-1 I/O-4] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2020-06-08 17:27:44.503  INFO 15928 --- [XNIO-1 task-9] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:57956
+2020-06-08 17:27:44.536  INFO 15928 --- [XNIO-1 task-9] lavalink.server.io.SocketServer          : Connection successfully established from /127.0.0.1:57956
