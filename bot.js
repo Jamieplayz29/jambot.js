@@ -18,7 +18,6 @@ const YouTube = require('simple-youtube-api');
 const youtube = new YouTube(process.env.YOUTUBE_API)
 const { RichEmbed } = require("discord.js");
 const fetch = require('node-fetch');
-const { ErelaClient, Utils } = require("erela.js");
 const { nodes } = require("./botconfig.json");
 
 
